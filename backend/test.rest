@@ -1,8 +1,8 @@
-GET http://localhost:3000/books HTTP/1.1
+PUT http://localhost:3000/books/65c8ca0b91a0eb4403db754f HTTP/1.1
 content-type: application/json
 
 {
-    "title": "book2",
+    "title": "updated book2",
     "author": "author2",
     "publishYear": 2000
 }
