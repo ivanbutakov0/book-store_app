@@ -1,12 +1,22 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const cors = require('cors')
 require('dotenv').config()
 
 const PORT = process.env.PORT || 5000
 
-// middleware for parsing request body
+// Middleware for parsing request body
 app.use(express.json())
+
+// Middleware for handling CORS policy
+app.use(
+	cors({
+		origin: 'http://localhost:3000',
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+		allowedHeaders: ['Content-Type'],
+	})
+)
 
 app.get('/', (req, res) => {
 	res.send('Hello World!')
