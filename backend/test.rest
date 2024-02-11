@@ -1,0 +1,8 @@
+GET http://localhost:3000/books HTTP/1.1
+content-type: application/json
+
+{
+    "title": "book2",
+    "author": "author2",
+    "publishYear": 2000
+}
