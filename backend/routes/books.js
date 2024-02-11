@@ -4,6 +4,18 @@ const router = express.Router()
 
 router
 	.route('/')
+	.get(async (req, res) => {
+		try {
+			const books = await Book.find({})
+			res.status(200).json({
+				count: books.length,
+				data: books,
+			})
+		} catch (err) {
+			console.log(err.message)
+			res.status(500).send({ message: err.message })
+		}
+	})
 	.post(async (req, res) => {
 		try {
 			if (!req.body.title || !req.body.author || !req.body.publishYear) {
@@ -17,18 +29,6 @@ router
 			await book.save()
 
 			res.status(201).send(book)
-		} catch (err) {
-			console.log(err.message)
-			res.status(500).send({ message: err.message })
-		}
-	})
-	.get(async (req, res) => {
-		try {
-			const books = await Book.find({})
-			res.status(200).json({
-				count: books.length,
-				data: books,
-			})
 		} catch (err) {
 			console.log(err.message)
 			res.status(500).send({ message: err.message })
@@ -66,6 +66,21 @@ router
 
 			return res.status(200).json({
 				message: 'Book updated successfully:',
+				data: book,
+			})
+		} catch (err) {
+			console.log(err.message)
+			res.status(500).send({ message: err.message })
+		}
+	})
+	.delete(async (req, res) => {
+		try {
+			const book = await Book.findByIdAndDelete(req.params.id)
+			if (!book) {
+				return res.status(404).send({ message: 'Book not found' })
+			}
+			return res.status(200).json({
+				message: 'Book deleted successfully:',
 				data: book,
 			})
 		} catch (err) {
