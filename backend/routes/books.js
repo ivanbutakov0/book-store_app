@@ -9,7 +9,7 @@ router
 			const books = await Book.find({})
 			res.status(200).json({
 				count: books.length,
-				data: books,
+				books: books,
 			})
 		} catch (err) {
 			console.log(err.message)
